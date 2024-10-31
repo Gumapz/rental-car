@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>AdminHub</title>
+	<style>
+		.info-table {
+			width: 100%;
+			border-collapse: collapse; /* Ensure there are no gaps between table cells */
+		}
+
+		.info-table th, .info-table td {
+			padding: 12px;
+			text-align: left; /* Align text to the left */
+			border: 1px solid #ddd; /* Add borders between cells */
+		}
+
+		.info-table th {
+			background-color: #f4f4f4;
+			font-size: 18px;
+		}
+
+		.info-table td {
+			font-size: 16px;
+			color: #333;
+		}
+
+		/* Button */
+		.info-table td .action-btn {
+			padding: 8px 16px;
+			font-size: 16px;
+			color: #fff;
+			background-color: #007bff;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.info-table td .action-btn:hover {
+			background-color: #0056b3;
+		}
+
+		/* Create Service Button */
+		.button-container {
+			display: flex;
+			justify-content: flex-start; /* Align button to the left */
+			margin-bottom: 10px; /* Add space between button and table */
+		}
+
+		.create-btn {
+			padding: 10px 20px;
+			font-size: 16px;
+			color: #fff;
+			background-color: #28a745; /* Green button */
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.create-btn:hover {
+			background-color: #218838; /* Darker green on hover */
+		}
+
+		/* Modal Styles */
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed;
+			z-index: 1000; /* Stay on top */
+			left: 0;
+			top: 0;
+			width: 120%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+		}
+
+		.modal-content {
+			background-color: #fff;
+			margin: 10% auto; /* Center the modal */
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			width: 500px; /* Adjust width as needed */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.modal-content h2 {
+			margin-bottom: 20px;
+		}
+
+		.modal-content label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.modal-content input {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+
+		.modal-content button.create-btn {
+			width: 100%;
+			padding: 10px 0;
+			background-color: #28a745;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.modal-content button.create-btn:hover {
+			background-color: #218838;
+		}
+
+		/* Close Button */
+		.close-btn {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.close-btn:hover {
+			color: #000;
+		}
+
+		.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+
+
+
+	</style>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin</span>
+		</a>
+		<ul class="side-menu top">
+			<li >
+				<a href="index.html">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li >
+				<a href="#" class="dropdown-toggle">
+					<i class='bx bxs-shopping-bag-alt'></i>
+					<span class="text">Brands</span>
+					<i class='bx bx-chevron-down'></i>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="brand.html">Create Brand</a></li>
+					<li><a href="managebrand.html">Manage Brand</a></li>
+				</ul>
+			</li>
+			<li >
+				<a href="#" class="dropdown-toggle">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Cars</span>
+					<i class='bx bx-chevron-down'></i>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="postcar.html">Post Cars</a></li>
+					<li><a href="#">Manage cars</a></li>
+				</ul>
+			</li>
+			
+			<li>
+				<a href="#">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Manage Bookings</span>
+				</a>
+			</li>
+            <li class="active">
+				<a href="#">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Update Service Price</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Manage feedback</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell' ></i>
+				<span class="num">8</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="img/people.png">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Extra Service</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Service</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Extra Service</a>
+						</li>
+					</ul>
+				</div>
+
+                <div class="brands-box">
+					<h2>Extra Service</h2>
+					<div class="button-container">
+						<button class="create-btn" id="open-modal">Create Service</button>
+					</div>
+					
+						<table class="info-table">
+							<tr>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Action</th>
+							</tr>
+							<tr>
+								<td>Driver Service</td>
+								<td>$120</td>
+								<td>
+									<div class="dropdown">
+										<button class="action-btn dropdown-toggle" onclick="toggleDropdown(event)">Action</button>
+										<div class="dropdown-menu">
+											<a href="#" class="dropdown-item" onclick="editService(event)">Edit</a>
+											<a href="#" class="dropdown-item" onclick="deleteService(event)">Delete</a>
+										</div>
+									</div>
+								</td>								
+							</tr>
+						</table>
+				</div>
+
+				<!-- Modal Popup -->
+				<div class="modal" id="create-service-modal">
+					<div class="modal-content">
+						<span class="close-btn" id="close-modal">&times;</span>
+						<h2>Create New Service</h2>
+						<label for="service-name">Name:</label>
+						<input type="text" id="service-name" placeholder="Enter service name">
+
+						<label for="service-price">Price:</label>
+						<input type="text" id="service-price" placeholder="Enter service price">
+
+						<button class="create-btn" id="submit-service">Create</button>
+					</div>
+				</div>
+					
+			</div>
+        </main>
+    </section>
+    <script src="script.js"></script>
+	<script>
+		// Get modal and buttons
+		var modal = document.getElementById("create-service-modal");
+		var openModalBtn = document.getElementById("open-modal");
+		var closeModalBtn = document.getElementById("close-modal");
+	
+		// Open the modal
+		openModalBtn.onclick = function() {
+			modal.style.display = "block";
+		}
+	
+		// Close the modal
+		closeModalBtn.onclick = function() {
+			modal.style.display = "none";
+		}
+	
+		// Close the modal when clicking outside of the modal content
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+
+		// Toggle dropdown menu
+		function toggleDropdown(event) {
+        const dropdownMenu = event.currentTarget.nextElementSibling;
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    }
+
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.action-btn')) {
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+        }
+    }
+
+    // Function to edit a service
+    function editService(event) {
+        const row = event.target.closest('tr');
+        const serviceName = row.cells[0].innerText;
+        const servicePrice = row.cells[1].innerText.replace('$', '');
+        
+        // Populate the modal with current service details
+        document.getElementById("service-name").value = serviceName;
+        document.getElementById("service-price").value = servicePrice;
+        
+        // Open modal
+        modal.style.display = "block";
+        
+        // Optional: Change the button to save changes instead of creating a new service
+        submitServiceBtn.innerText = "Save Changes";
+        submitServiceBtn.onclick = function() {
+            // Save changes logic here (Update the table)
+            row.cells[0].innerText = document.getElementById("service-name").value;
+            row.cells[1].innerText = `$${document.getElementById("service-price").value}`;
+            modal.style.display = "none";
+            submitServiceBtn.innerText = "Create"; // Reset button text
+        };
+    }
+
+    // Function to delete a service
+    function deleteService(event) {
+        const row = event.target.closest('tr');
+        row.parentNode.removeChild(row); // Remove the row from the table
+    }
+	</script>
+	
+</body>
+</html>
